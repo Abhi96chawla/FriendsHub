@@ -1,6 +1,8 @@
 version: '3'
 services:
   web:
-    build: .
+    build:
+      dockerfile: .
+      context: ./client2
     ports:
       - "8000:8000"
