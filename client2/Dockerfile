@@ -17,11 +17,11 @@ COPY . .
 # Build typescript
 RUN npm run build
  
- 
+ RUN ls -al
  
 FROM nginx:stable-alpine
  
 #COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /usr/src/app/client2/index.html /usr/share/nginx/html
+#COPY --from=build /usr/src/app/client2/index.html /usr/share/nginx/html
  
 EXPOSE 8000
