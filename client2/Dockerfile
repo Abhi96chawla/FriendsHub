@@ -24,4 +24,4 @@ FROM nginx:stable-alpine
 #COPY nginx.conf /etc/nginx/nginx.conf
 #COPY --from=build /usr/src/app/client2/index.html /usr/share/nginx/html
  
-EXPOSE 8000
+#EXPOSE 8000
