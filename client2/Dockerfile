@@ -21,8 +21,8 @@ RUN ls -al
 FROM node:18-alpine as prod
 WORKDIR /app/react-app
 
-COPY --from=build /usr/src/app .
-#COPY --from=build /app/react-app/dist/ /app/react-app/dist/
+#COPY --from=build /usr/src/app .
+COPY --from=build /app/react-app/dist/ /app/react-app/dist/
  
 EXPOSE 8000
 COPY package.json .
