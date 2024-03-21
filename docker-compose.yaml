@@ -1,7 +1,7 @@
 version: '3'
 services:
-  web:
-    build: .
+  app:
+    build:
       context: ./client2
       dockerfile: Dockerfile
     ports:
