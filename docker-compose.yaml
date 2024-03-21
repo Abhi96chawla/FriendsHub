@@ -1,8 +1,6 @@
 version: '3'
 services:
-  app:
-    build:
-      context: ./client2
-      dockerfile: Dockerfile
+  web:
+    build: .
     ports:
       - "8000:8000"
