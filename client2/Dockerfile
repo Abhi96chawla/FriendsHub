@@ -19,7 +19,7 @@ RUN npm run build
  
  RUN ls -al
  
-FROM nginx:stable-alpine
+#FROM nginx:stable-alpine
  
 #COPY nginx.conf /etc/nginx/nginx.conf
 #COPY --from=build /usr/src/app/client2/index.html /usr/share/nginx/html
