@@ -26,5 +26,5 @@ COPY --from=build /usr/src/app .
  
 EXPOSE 8000
 COPY package.json .
-COPY vite.config.ts .
+COPY vite.config.js .
 CMD [ "npm", "run", "preview" ]
