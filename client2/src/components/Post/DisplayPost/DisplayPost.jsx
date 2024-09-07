@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./DisplayPost.css";
 
 const DisplayPost = () => {
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+
+    if (theme === "dark") {
+      import("./DisplayPostdark.css");
+    } else {
+      import("./DisplayPost.css");
+    }
+  }, []);
+
+  const apiUrl = "https://friendshub-0y8a.onrender.com";
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch("http://localhost:8000/getPosts");
+        const response = await fetch(`${apiUrl}/getPosts`);
         const data = await response.json();
         setPosts(data);
       } catch (error) {
@@ -22,48 +32,53 @@ const DisplayPost = () => {
   return (
     <div>
       {posts.map((post) => (
-        <div key={post._id} className="card">
-          <div className="card-header">
-            <img
-              className="avatar"
-              src={
-                post.user && post.user.profilePicture
-                  ? post.user.profilePicture
-                  : "/Images/profile-picture.png"
-              }
-              alt="User Avatar"
-            />
-            <div className="user-info">
-              <Link
-                to={`/displayUserProfile/${post.user.username}`}
-                className="nav-link"
-              >
-                <h4>{`${post.user.firstName} ${post.user.lastName}`}</h4>
-              </Link>
-              <p>Posted {calculateTimeDifference(post.createdAt)} ago</p>
+        <div key={post._id}>
+          <Link to={`/postDetail/${post._id}`} className="post-link">
+            <div className="card">
+              <div className="card-header">
+                <img
+                  className="avatar"
+                  src={
+                    post.user && post.user.profilePicture
+                      ? post.user.profilePicture
+                      : "https://placekitten.com/40/40"
+                  }
+                  alt="User Avatar"
+                />
+                <div className="user-info">
+                  <Link
+                    to={`/displayUserProfile/${post.user.username}`}
+                    className="nav-link"
+                  >
+                    <h4>{`${post.user.firstName} ${post.user.lastName}`}</h4>
+                  </Link>
+                  <p>Posted {calculateTimeDifference(post.createdAt)} ago</p>
+                </div>
+              </div>
+              <div className="post-content">
+                <p>{post.textDescription}</p>
+                {post.images && post.images.length > 0 && (
+                  <img
+                    className="post-image"
+                    src={post.images[0].url}
+                    alt="Post Image"
+                  />
+                )}
+              </div>
+              <div className="actions" style={{ flexDirection: "row" }}>
+                <div className="action-btn">
+                  <i className="fas fa-thumbs-up"></i> Like
+                </div>
+                <div className="action-btn">
+                  <i className="fas fa-comment"></i> Comment
+                </div>
+                <div className="action-btn">
+                  <i class="fa-solid fa-circle-exclamation"></i>
+                  Report
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="post-content">
-            <p>{post.textDescription}</p>
-            {post.images && post.images.length > 0 && (
-              <img
-                className="post-image"
-                src={post.images[0].url}
-                alt="Post Image"
-              />
-            )}
-          </div>
-          <div className="actions">
-            <div className="action-btn">
-              <i className="fas fa-thumbs-up"></i> Like
-            </div>
-            <div className="action-btn">
-              <i className="fas fa-comment"></i> Comment
-            </div>
-            <div className="action-btn">
-              <i className="fas fa-share"></i> Share
-            </div>
-          </div>
+          </Link>
         </div>
       ))}
     </div>

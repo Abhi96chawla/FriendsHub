@@ -1,14 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSignup } from "../../hooks/useSignup";
-import "./Signup.css";
 
 const Signup = () => {
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+
+    if (theme === "dark") {
+      import("./Signupdark.css");
+    } else {
+      import("./Signup.css");
+    }
+  }, []);
+
   const [emailAddress, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [dob, setDob] = useState("");
+  const [userRole, setUserRole] = useState("user");
   const { signup, error, isLoading } = useSignup();
 
   const handleSubmit = async (e) => {
@@ -22,12 +32,12 @@ const Signup = () => {
         firstName,
         lastName,
         username,
-        dob
+        dob,
+        userRole
       );
     } catch (error) {
       // Handle any errors that occur during the signup process
       console.error("Error during signup:", error);
-      // You may want to add further error handling or feedback to the user here
     }
   };
 
@@ -69,6 +79,11 @@ const Signup = () => {
         onChange={(e) => setPassword(e.target.value)}
         value={password}
       />
+      <label>User Role:</label>
+      <select value={userRole} onChange={(e) => setUserRole(e.target.value)}>
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
 
       <label>Date of Birth:</label>
       <input type="date" onChange={(e) => setDob(e.target.value)} value={dob} />

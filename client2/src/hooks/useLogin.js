@@ -3,6 +3,7 @@ import { useAuthContext } from "./useAuthContext";
 import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
+  const apiUrl = "https://friendshub-0y8a.onrender.com";
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
@@ -12,13 +13,13 @@ export const useLogin = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("http://localhost:8000/user/login", {
+    const response = await fetch(`${apiUrl}/user/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ emailAddress, password }),
     });
+    // console.log("Json - " + response.role);
     const json = await response.json();
-    console.log("Json " + JSON.stringify(response));
     if (!response.ok) {
       setIsLoading(false);
       setError(json.error);
@@ -32,7 +33,11 @@ export const useLogin = () => {
 
       // update loading state
       setIsLoading(false);
-      navigateTo("/");
+      if (json.role == "user") {
+        navigateTo("/");
+      } else if (json.role == "admin") {
+        navigateTo("/admin/managePost");
+      }
     }
   };
 

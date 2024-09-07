@@ -1,64 +1,126 @@
-.display-profile-container{
-  width: 70%;
+.display-profile-container {
+  width: 90%;
   margin: 0 auto;
 }
 
-.display-profile-subcontainer{
+.display-profile-subcontainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
   background-color: #e9eff7;
-  width:70%;
+  width: 90%;
   margin: 0 auto;
   padding: 20px 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   margin-bottom: 20px;
 }
 
-.fullName{
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+.fullName {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-size: x-large;
 }
 
-
-a.edit-image{
-cursor: pointer;
-color: var(--link-color);
+a.edit-image {
+  cursor: pointer;
+  color: var(--link-color);
 }
 
-a.edit-image:hover{
+a.edit-image:hover {
   color: var(--link-color-hover);
-  }
+}
 
-.profile-picture{
-  width: 5em;
+img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.profile-picture {
+  width: auto;
   height: 5em;
   border-radius: 50%;
   /* background-color: black; */
-
 }
 
-.table-container{
+.display-userdetails-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+.profile-header {
+  width: 70%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  border-bottom: 2px solid grey;
+}
+
+.table-container {
   display: flex;
   justify-content: center;
   margin-top: 10px;
   margin-bottom: 30px;
 }
 
-td{
+td {
   height: 40px;
   width: 100%;
   text-align: left;
 }
 
-.data{
+.data {
   width: 300px;
   text-align: center;
 }
 
+.followers-following {
+  color: black;
+}
+
+.followers-following:hover {
+  color: bluey;
+}
+
+.followRequestContainer {
+  padding: 5px;
+  margin: 10px auto 20px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  width: 25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.followRequestContainer p {
+  margin-bottom: 10px;
+}
+
+.report-btn-container {
+  display: flex;
+  justify-content: end;
+  margin-right: 100px;
+}
+
+.followers-following-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 30px;
+}
+
 @media (max-width: 991px) {
-  .display-profile-container{
-    width: 100%;
+  .display-profile-container {
+    width: 80%;
+  }
+  .display-userdetails-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  .followRequestContainer {
+    width: 15rem;
   }
 }

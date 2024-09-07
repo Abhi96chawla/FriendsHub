@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "./UpdateUserProfile.css";
 import axios from "axios";
 
 export default function UpdateUserProfile() {
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+
+    if (theme === "dark") {
+      import("./UpdateUserProfiledark.css");
+    } else {
+      import("./UpdateUserProfile.css");
+    }
+  }, []);
+
+  const apiUrl = "https://friendshub-0y8a.onrender.com";
   const [formData, setFormData] = useState({
     nickName: "",
     bio: "",
@@ -26,9 +36,7 @@ export default function UpdateUserProfile() {
   const fetchUserProfile = async (userId) => {
     try {
       // Send a Get request to retrieve user details
-      const response = await axios.get(
-        `http://localhost:8000/getUserProfile/${userId}`
-      );
+      const response = await axios.get(`${apiUrl}/getUserProfile/${userId}`);
       const responseData = response.data;
       setFormData({ ...responseData.userProfileData.userInformation });
       setFormData((prevFormData) => ({
@@ -62,7 +70,7 @@ export default function UpdateUserProfile() {
     try {
       // Send a POST request to update user details
       const response = await axios.post(
-        "http://localhost:8000/updateUserDetails",
+        `${apiUrl}/updateUserDetails`,
         formData
       );
 

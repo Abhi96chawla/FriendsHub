@@ -3,6 +3,7 @@ import { useAuthContext } from "./useAuthContext";
 import { useNavigate } from "react-router-dom";
 
 export const useSignup = () => {
+  const apiUrl = "https://friendshub-0y8a.onrender.com";
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const navigateTo = useNavigate();
@@ -13,12 +14,13 @@ export const useSignup = () => {
     firstName,
     lastName,
     username,
-    dob
+    dob,
+    userRole
   ) => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("http://localhost:8000/user/signup", {
+    const response = await fetch(`${apiUrl}/user/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -28,6 +30,7 @@ export const useSignup = () => {
         lastName,
         username,
         dob,
+        role: userRole,
       }),
     });
     const json = await response.json();

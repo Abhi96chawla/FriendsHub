@@ -96,11 +96,34 @@ const userAccountInformationSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  friends: {
+  reports: [
+    {
+      reportComment: {
+        type: String,
+      },
+      reportBy: {
+        type: ObjectId,
+        ref: "UserAccount",
+      },
+      reportAt: {
+        type: Date,
+        default: new Date(),
+      },
+    },
+  ],
+  followers: {
     type: Array,
     default: [],
   },
-  friendRequests: {
+  following: {
+    type: Array,
+    default: [],
+  },
+  incomingfollowRequests: {
+    type: Array,
+    default: [],
+  },
+  sentfollowRequests: {
     type: Array,
     default: [],
   },
@@ -187,16 +210,23 @@ userAccountSchema.statics.signup = async function (
   firstName,
   lastName,
   username,
+  role,
   dateOfBirth,
   monthOfBirth,
-  yearOfBirth
+  yearOfBirth,
+  profilePicture
 ) {
   // validation
   if (
-    (!emailAddress || !password || !firstName || !lastName || !username,
-    !dateOfBirth,
-    !monthOfBirth,
-    !yearOfBirth)
+    !emailAddress ||
+    !password ||
+    !firstName ||
+    !lastName ||
+    !username ||
+    !role ||
+    !dateOfBirth ||
+    !monthOfBirth ||
+    !yearOfBirth
   ) {
     throw Error("All fields must be filled");
   }
@@ -227,6 +257,8 @@ userAccountSchema.statics.signup = async function (
     firstName,
     lastName,
     username,
+    role,
+    profilePicture,
     userInformation: {
       dateOfBirth,
       monthOfBirth,

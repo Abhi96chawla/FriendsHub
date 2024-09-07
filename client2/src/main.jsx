@@ -6,6 +6,8 @@ import Home from "./components/Home/Home.jsx";
 import UpdateUserProfile from "./components/UserProfile/UpdateUserProfile/UpdateUserProfile.jsx";
 import Login from "./components/Login/Login.jsx";
 import Signup from "./components/Signup/Signup.jsx";
+import PostDetail from "./components/Post/PostDetail/PostDetail.jsx";
+import DisplayFriendRequest from "./components/ManageFriendRequest/DisplayFriendRequest/DisplayFriendRequest.jsx";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
 
 import {
@@ -16,22 +18,32 @@ import {
 } from "react-router-dom";
 import DisplayUserProfile from "./components/UserProfile/DisplayUserProfile/DisplayUserProfile.jsx";
 import Search from "./components/Search/Search.jsx";
+import ManagePost from "./components/Admin/ManagePost/ManagePost.jsx";
+import ManageUser from "./components/Admin/ManageUser/ManageUser.jsx";
+import FollowerAndFollowingList from "./components/UserProfile/FollowerAndFollowingList/FollowerAndFollowingList.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route path="" element={<Home />} />
+      <Route path="/postDetail/:postId" element={<PostDetail />} />
       <Route path="updateUserProfile/:userId" element={<UpdateUserProfile />} />
       <Route
-        path="displayUserProfile/:userId"
+        path="/displayUserProfile/:userId"
         element={<DisplayUserProfile />}
       />
+      <Route
+        path="/followersAndFollowings/:userId/:listType"
+        element={<FollowerAndFollowingList />}
+      />
+      <Route path="/admin/manageUser" element={<ManageUser />} />
+      <Route path="/admin/managePost" element={<ManagePost />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      {/* <Route
-        path="/signup"
-        element={!user ? <Signup /> : <Navigate to="/" />}
-      /> */}
+      <Route
+        path="/displayFriendRequest/:userId"
+        element={<DisplayFriendRequest />}
+      />
     </Route>
   )
 );
